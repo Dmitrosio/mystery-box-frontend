@@ -9,7 +9,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`https://mystery-box-promo.vercel.app?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`);
+      const res = await fetch(`https://mystery-box-promo.vercel.app/api?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`);
       const data = await res.json();
       if (data.error) {
         setError(data.error);
