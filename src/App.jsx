@@ -13,7 +13,25 @@ function App() {
     try {
       const res = await fetch(`https://script.google.com/macros/s/AKfycbz44R7SaxOxmo0BfM1xj0IwCBGRNGEWqqnRkTH6Nhd2ESUybLjIrChGEEqnvLD2Y2QN/exec?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`, {
         redirect: 'manual'  // Prevent automatic redirects
-      });      const data = await res.json();
+      });
+  
+      // Check for redirection
+      if (res.status === 301 || res.status === 302) {
+        const redirectUrl = res.headers.get('Location');
+        console.error('Redirect detected. Location:', redirectUrl);
+        setError('Redirect occurred. Please check URL or permissions.');
+        setPromo(null);
+        return; // Stop execution here
+      }
+  
+      if (!res.ok) {
+        // If the response status is not OK (2xx), show an error
+        setError(`Request failed with status: ${res.status}`);
+        setPromo(null);
+        return;
+      }
+  
+      const data = await res.json();
       if (data.error) {
         setError(data.error);
         setPromo(null);
@@ -28,6 +46,7 @@ function App() {
       setLoading(false);  // Set loading to false once the request is done
     }
   };
+  
 
   return (
     <div className="app">
