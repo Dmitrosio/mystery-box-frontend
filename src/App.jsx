@@ -38,7 +38,7 @@ function App() {
       </form>
 
       {loading && <p>Loading...</p>}  {/* Show loading text while fetching */}
-      {promo && <h2>🎉 You won: {promo.promo} (Code: {code.code})</h2>}
+      {promo && <h2>🎉 You won: {promo.promo} (Code: {promo.code})</h2>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
