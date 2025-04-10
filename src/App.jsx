@@ -11,8 +11,9 @@ function App() {
     e.preventDefault();
     setLoading(true);  // Set loading to true when the form is submitted
     try {
-      const res = await fetch(`https://script.google.com/macros/s/AKfycbz44R7SaxOxmo0BfM1xj0IwCBGRNGEWqqnRkTH6Nhd2ESUybLjIrChGEEqnvLD2Y2QN/exec?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`);
-      const data = await res.json();
+      const res = await fetch(`https://script.google.com/macros/s/AKfycbz44R7SaxOxmo0BfM1xj0IwCBGRNGEWqqnRkTH6Nhd2ESUybLjIrChGEEqnvLD2Y2QN/exec?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`, {
+        redirect: 'manual'  // Prevent automatic redirects
+      });      const data = await res.json();
       if (data.error) {
         setError(data.error);
         setPromo(null);
